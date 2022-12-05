@@ -5,6 +5,19 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0"
     />
+
+{{--    <meta--}}
+{{--        content="{{$post->meta->meta_description ? $post->meta->meta_description : ''}}"--}}
+{{--        name="description"--}}
+{{--    />--}}
+{{--    <meta--}}
+{{--        content="{{$post->meta->meta_keywords ? $post->meta->meta_keywords : ''}}"--}}
+{{--        name="keywords"--}}
+{{--    />--}}
+{{--    <meta--}}
+{{--        content="{{$post->meta->meta_robots ? $post->meta->meta_robots : ''}}"--}}
+{{--        name="robots"--}}
+{{--    />--}}
     <meta
         http-equiv="X-UA-Compatible"
         content="ie=edge"
@@ -27,7 +40,12 @@
     <h4 class="text-left sm:text-center text-2xl sm:text-4xl md:text-5xl font-bold text-gray-900 py-10 sm:py-20">
         {{ $post->title }}
     </h4>
-
+    <p class="pt-4 italic">
+        Categories:
+        @foreach($post->categories as $category)
+            {{ $category->title }}
+        @endforeach
+    </p>
     <div class="block lg:flex flex-row">
         <div class="basis-9/12 text-center sm:block sm:text-left">
                 <span class="text-left sm:text-center sm:text-left sm:inline block text-gray-900 pb-10 sm:pt-0 pt-0 sm:pt-10 pl-0 sm:pl-4 -mt-8 sm:-mt-0">
