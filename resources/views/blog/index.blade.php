@@ -24,13 +24,15 @@
         <hr class="border border-1 border-gray-300 mt-10">
     </div>
 
-    <div class="py-10 sm:py-20">
-        <a class="primary-btn inline text-base sm:text-xl bg-green-500 py-4 px-4 shadow-xl rounded-full transition-all hover:bg-green-400"
-           href={{ route('blog.create') }}
-        >
-            New Article
-        </a>
-    </div>
+    @if(Auth::user())
+        <div class="py-10 sm:py-20">
+            <a class="primary-btn inline text-base sm:text-xl bg-green-500 py-4 px-4 shadow-xl rounded-full transition-all hover:bg-green-400"
+               href={{ route('blog.create') }}
+            >
+                New Article
+            </a>
+        </div>
+    @endif
 </div>
 @if(session()->has('message'))
     <div class="mx-auto w-4/5 pb-10">
@@ -65,22 +67,24 @@
                         </a>
                     on {{ $post->updated_at->format('d/m/Y') }}
                 </span>
-               <div class="flex gap-4">
-                   <a
-                       href="{{ route('blog.edit', $post->id) }}"
-                       class="block italic text-green-500 border-b-1 border-green-400"
-                   >
-                       Edit
-                   </a>
-                   <form
-                       action="{{ route('blog.destroy',$post->id) }}"
-                       method="POST"
-                   >
-                       @csrf
-                       @method('DELETE')
-                       <button type="submit" class="block italic text-red-500 border-b-1 border-red-400">delete</button>
-                   </form>
-               </div>
+               @if(Auth::id() === $post->user->id)
+                    <div class="flex gap-4">
+                        <a
+                            href="{{ route('blog.edit', $post->id) }}"
+                            class="block italic text-green-500 border-b-1 border-green-400"
+                        >
+                            Edit
+                        </a>
+                        <form
+                            action="{{ route('blog.destroy',$post->id) }}"
+                            method="POST"
+                        >
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="block italic text-red-500 border-b-1 border-red-400">delete</button>
+                        </form>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
